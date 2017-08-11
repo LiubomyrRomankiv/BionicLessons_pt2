@@ -26,11 +26,19 @@ let findUser = (user) => {
 
 let showMessage = (name) => {
   let newDomElement = {};
+  let attr = [];
+  let text = '';
+
   if(!!name) {
-    newDomElement = dom.createElement('p',[{'class':'output good'}], 'Hello, ' + name + '. How are you?');
+    attr = [{ name: 'class', val: 'output good' }];
+    text = 'Hello, ' + name + '. How are you?';
   } else {
-    newDomElement = dom.createElement('p',[{'class':'output bad'}], 'No user finded. Please, enter correct "login" and "password"');
+    attr = [{ name: 'class', val: 'output bad' }];
+    text = 'No user finded. Please, enter correct "login" and "password"';
   }
+
+  newDomElement = dom.createElement('p', attr, text);
+  dom.createElement('p',[{'class':'output bad'}], );
   wraper.appendChild(newDomElement);
 }
 
