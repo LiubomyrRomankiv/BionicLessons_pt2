@@ -3,16 +3,15 @@
 import user from './user';
 import './main.scss';
 
-let wraper = document.getElementById('wrapper');
 let authorizationForm = document.getElementById('authorization-form');
 
 authorizationForm.addEventListener("submit", function(e) {
   e.preventDefault();
-  let user = {
+  let userData = {
   	login: this.login.value,
   	pass: this.password.value
   }
-  user.userAuthorization(user);
+  user.userAuthorization(userData);
   this.login.value = '';
   this.password.value = '';
 });

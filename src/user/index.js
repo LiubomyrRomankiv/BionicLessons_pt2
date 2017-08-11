@@ -3,6 +3,8 @@
 import users from './users';
 import dom from '../dom';
 
+let wraper = document.getElementById('wrapper');
+
 let userAuthorization = (user) => {
   let userName = findUser(user);
   if(userName){
@@ -36,4 +38,4 @@ let showMessage = (name) => {
 
 export default {
   userAuthorization: userAuthorization
-}
+};
