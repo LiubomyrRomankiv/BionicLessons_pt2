@@ -1,4 +1,4 @@
 'use strict';
 
-import sayHello from './user.js';
+import user from './user';
 import './main.scss';
