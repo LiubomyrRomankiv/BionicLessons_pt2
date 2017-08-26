@@ -1,7 +1,7 @@
 body {
   background: #fff; }
 
-#wrapper {
+#login-page {
   width: 90%;
   max-width: 300px;
   position: absolute;
@@ -24,19 +24,19 @@ body {
   -ms-transform: translate(-50%, -50%);
   -o-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%); }
-  #wrapper .authorization-form {
+  #login-page .authorization-form {
     width: 100%;
     font-family: 'Helvetica', 'sans-serif'; }
-    #wrapper .authorization-form__title {
+    #login-page .authorization-form__title {
       line-height: 1;
       padding: 0;
       margin: 0;
       padding-bottom: 10px;
       color: #47a84c; }
-    #wrapper .authorization-form__label {
+    #login-page .authorization-form__label {
       display: block;
       padding: 10px 0; }
-    #wrapper .authorization-form__input {
+    #login-page .authorization-form__input {
       width: 100%;
       padding: 5px;
       -webkit-box-sizing: border-box;
@@ -45,9 +45,9 @@ body {
       border: none;
       border-bottom: 1px solid #98999b;
       outline: none; }
-      #wrapper .authorization-form__input:focus {
+      #login-page .authorization-form__input:focus {
         border-bottom: 1px solid #47a84c; }
-    #wrapper .authorization-form__submit_btn {
+    #login-page .authorization-form__submit_btn {
       margin: 10px 0;
       padding: 10px 20px;
       border: 2px solid #4b834e;
@@ -67,23 +67,23 @@ body {
       -ms-transform: scale(1);
       -o-transform: scale(1);
       transform: scale(1); }
-      #wrapper .authorization-form__submit_btn:hover, #wrapper .authorization-form__submit_btn:active {
+      #login-page .authorization-form__submit_btn:hover, #login-page .authorization-form__submit_btn:active {
         color: #fff;
         background: #4b834e; }
-      #wrapper .authorization-form__submit_btn:active {
+      #login-page .authorization-form__submit_btn:active {
         -webkit-transform: scale(0.8);
         -moz-transform: scale(0.8);
         -ms-transform: scale(0.8);
         -o-transform: scale(0.8);
         transform: scale(0.8); }
-  #wrapper .output {
+  #login-page .output {
     font-family: 'Helvetica', 'sans-serif';
     font-size: 18px;
     text-align: center;
     padding: 0 20px; }
-    #wrapper .output.good {
+    #login-page .output.good {
       color: #4b834e; }
-    #wrapper .output.bad {
+    #login-page .output.bad {
       color: #a00e1f; }
 
 /*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJidW5kbGUuY3NzIiwic291cmNlUm9vdCI6IiJ9*/

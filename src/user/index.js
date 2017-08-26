@@ -2,15 +2,21 @@
 
 import users from './users';
 import dom from '../dom';
+import menu from '../menu';
+import router from '../router';
 
-let wraper = document.getElementById('wrapper');
+let activeUser = {};
 
-let userAuthorization = (user) => {
+let userAuthorization = (user, formSelector) => {
   let userName = findUser(user);
+  let wraper = document.getElementById(formSelector);
   if(userName){
-    showMessage(userName);
+    activeUser = user;
+    showMessage(wraper, userName);
+    router.renderPage('#/');
+    menu.init(activeUser);
   } else {
-    showMessage();
+    showMessage(wraper);
   }
 }
 
@@ -24,7 +30,7 @@ let findUser = (user) => {
   return false;
 }
 
-let showMessage = (name) => {
+let showMessage = (wraper, name) => {
   let newDomElement = {};
   let attr = [];
   let text = '';
@@ -37,13 +43,14 @@ let showMessage = (name) => {
     text = 'No user finded. Please, enter correct "login" and "password"';
   }
 
+  
   newDomElement = dom.createElement('p', attr, text);
   dom.createElement('p',[{'class':'output bad'}], );
   wraper.appendChild(newDomElement);
 }
 
+let init = () => {
+  return activeUser;
+}
 
-
-export default {
-  userAuthorization: userAuthorization
-};
+export default { userAuthorization, init }
