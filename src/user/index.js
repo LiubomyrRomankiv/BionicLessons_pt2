@@ -5,25 +5,59 @@ import dom from '../dom';
 import menu from '../menu';
 import router from '../router';
 
-let activeUser = {};
+window.userData = {
+  id: null,
+  name: '',
+  password: '',
+  admin: false
+};
 
 let userAuthorization = (user, formSelector) => {
-  let userName = findUser(user);
+  let newActiveUser = findUser(user);
   let wraper = document.getElementById(formSelector);
-  if(userName){
-    activeUser = user;
-    showMessage(wraper, userName);
-    router.renderPage('#/');
-    menu.init(activeUser);
+  if(newActiveUser) {
+    setActiveUser(newActiveUser);
+    router.redirectToPage('/#');
+    userMenu();
   } else {
     showMessage(wraper);
+  }
+}
+
+let userUnauthorization = () => {
+  let userMenuParrent = document.getElementById('user-menu');
+  userMenuParrent.addEventListener('click', function(e){
+    let id = e.target.getAttribute('id');
+    if ( id === 'logout-btn' ){
+      let userNull = {
+        id: null,
+        name: '',
+        password: '',
+        admin: false
+      };
+
+      setActiveUser(userNull);
+      router.redirectToPage('/#');
+      userMenu();
+    }
+  });
+}
+
+let userMenu = () => {
+  let parentElement = document.getElementById('user-menu');
+  if (userData.name !== ''){
+    parentElement.innerHTML = `<p>${userData.name}</p><button id="logout-btn" class="menu-item logout">LogOut</button>`;
+    userUnauthorization();
+  } else {
+    parentElement.innerHTML = '';
   }
 }
 
 let findUser = (user) => {
   for(let i = 0; i < users.length; i++){
     if(user.login === users[i].name && user.pass === users[i].password){
-      return users[i].name;
+      setActiveUser(users[i]);
+      return users[i];
       break;
     }
   }
@@ -42,15 +76,33 @@ let showMessage = (wraper, name) => {
     attr = [{ name: 'class', val: 'output bad' }];
     text = 'No user finded. Please, enter correct "login" and "password"';
   }
-
-  
+ 
   newDomElement = dom.createElement('p', attr, text);
   dom.createElement('p',[{'class':'output bad'}], );
   wraper.appendChild(newDomElement);
 }
 
-let init = () => {
-  return activeUser;
+let getStatus = () => {
+  if ( userData.name !== '' ) {
+    if (userData.admin === true) {
+      return 'admin';
+    }
+    return 'user';
+  }
+  return 'guest';
 }
 
-export default { userAuthorization, init }
+let getActiveUser = () => {
+  return userData;
+}
+
+let setActiveUser = (user) => {
+  userData = user;
+}
+
+export default { 
+  userAuthorization,
+  getStatus,
+  getActiveUser,
+  userMenu
+}

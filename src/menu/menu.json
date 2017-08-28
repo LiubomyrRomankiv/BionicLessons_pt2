@@ -3,7 +3,7 @@
     "guest": true,
     "user": true,
     "admin": true,
-    "link": "#/home",
+    "link": "#/",
     "text": "Home"
   },
   {
@@ -21,17 +21,17 @@
     "text": "Contacts"
   },
   {
-    "guest": true,
-    "user": false,
-    "admin": false,
-    "link": "#/login",
-    "text": "Login"
-  },
-  {
     "guest": false,
     "user": false,
     "admin": true,
     "link": "#/admin",
     "text": "Admin"
+  },
+  {
+    "guest": true,
+    "user": false,
+    "admin": false,
+    "link": "#/login",
+    "text": "Login"
   }
 ]

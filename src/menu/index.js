@@ -3,9 +3,11 @@
 import _ from 'lodash';
 import router from '../router';
 import menuItemsList from './menu.json';
+import user from '../user';
 
-let createMenu = ( selectorId, status ) => {
+let createMenu = ( selectorId, filter ) => {
   let menuBlock = document.getElementById(selectorId);
+  menuBlock.innerHTML = '';
   let attributes = [
     {
       name: 'id',
@@ -17,9 +19,11 @@ let createMenu = ( selectorId, status ) => {
     }
   ];
   let menu = createElement('ul', attributes);
-  // let menuFilter =  _.filter(menuItemsList, {'admin': true});
-  for (let i = 0; i < menuItemsList.length; i++){
-    let menuItem = createMenuItem(menuItemsList[i], i);
+
+  let menuFilter =  _.filter( menuItemsList, filter );
+
+  for (let i = 0; i < menuFilter.length; i++){
+    let menuItem = createMenuItem( menuFilter[i], i);
     menu.appendChild(menuItem);
   }
   menuBlock.appendChild(menu);
@@ -72,11 +76,11 @@ let drawActiveMenuItems = (item) => {
   if(!!item){
     item.classList.add('active');
   } else {
-    drawActiveMenuItemsHash();
+    drawActiveMenuItemsHash(menu);
   }
 };
 
-let drawActiveMenuItemsHash = () => {
+let drawActiveMenuItemsHash = (menu) => {
   let menuItems = menu.querySelectorAll('.menu-item');
   let hash = location.hash;
   for (let i = 0; i < menuItems.length; i++) {
@@ -88,8 +92,8 @@ let drawActiveMenuItemsHash = () => {
   }
 }
 
-let init = () => {
-  createMenu( 'header' );
+let init = (filter) => {
+  createMenu( 'nav-menu', filter );
   
   let menuItems = document.querySelectorAll('#menu a');
   let activeItem = _.find(menuItems, {url: window.location.hash});
@@ -107,5 +111,6 @@ let init = () => {
 };
 
 export default {
-  init
+  init,
+  drawActiveMenuItems,
 };

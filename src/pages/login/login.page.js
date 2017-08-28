@@ -9,6 +9,10 @@ class LoginPage extends Page {
     super(url);
     this.content = loginPageContent;
   }
+  whenPageRendered() {
+    this.authorization();
+  }
+
   authorization(){
     let authorizationForm = document.getElementById('authorization-form');
     let authorizationInputs = authorizationForm.querySelectorAll('.authorization-form__input');
@@ -22,8 +26,6 @@ class LoginPage extends Page {
       user.userAuthorization(userData, 'login-page');
       this.login.value = '';
       this.password.value = '';
-
-      console.log(window.location);
     });
 
     for(let i = 0; i < authorizationInputs.length; i++){
@@ -38,9 +40,5 @@ class LoginPage extends Page {
 }
 
 let loginPage = new LoginPage('#/login');
-
-setTimeout(() => {
-  loginPage.authorization();
-}, 200);
 
 export default loginPage;
