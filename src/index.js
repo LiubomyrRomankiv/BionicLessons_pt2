@@ -6,4 +6,4 @@ import router from './router';
 import user from './user';
 
 router.init();
-// user.userMenu();
+user.init();

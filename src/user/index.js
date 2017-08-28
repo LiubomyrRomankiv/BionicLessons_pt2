@@ -5,12 +5,15 @@ import dom from '../dom';
 import menu from '../menu';
 import router from '../router';
 
-window.userData = {
-  id: null,
-  name: '',
-  password: '',
-  admin: false
-};
+let init = () => {
+  let isUser = localStorage.getItem("user");
+  if(isUser){
+    setActiveUser(JSON.parse(isUser));
+  }
+  userMenu();
+}
+
+let getUserData = () => { return JSON.parse(localStorage.getItem("user")); };
 
 let userAuthorization = (user, formSelector) => {
   let newActiveUser = findUser(user);
@@ -29,26 +32,23 @@ let userUnauthorization = () => {
   userMenuParrent.addEventListener('click', function(e){
     let id = e.target.getAttribute('id');
     if ( id === 'logout-btn' ){
-      let userNull = {
-        id: null,
-        name: '',
-        password: '',
-        admin: false
-      };
-
-      setActiveUser(userNull);
-      router.redirectToPage('/#');
+      removeUser();
       userMenu();
+      router.redirectToPage('/#');
     }
   });
 }
 
 let userMenu = () => {
   let parentElement = document.getElementById('user-menu');
-  if (userData.name !== ''){
-    parentElement.innerHTML = `<p>${userData.name}</p><button id="logout-btn" class="menu-item logout">LogOut</button>`;
-    userUnauthorization();
-  } else {
+  let userData = getUserData();
+  if ( !!userData ){
+    if (userData.name !== ''){
+      parentElement.innerHTML = `<p>${userData.name}</p><button id="logout-btn" class="menu-item logout">LogOut</button>`;
+      userUnauthorization();
+    }
+  }
+   else {
     parentElement.innerHTML = '';
   }
 }
@@ -56,7 +56,6 @@ let userMenu = () => {
 let findUser = (user) => {
   for(let i = 0; i < users.length; i++){
     if(user.login === users[i].name && user.pass === users[i].password){
-      setActiveUser(users[i]);
       return users[i];
       break;
     }
@@ -83,26 +82,36 @@ let showMessage = (wraper, name) => {
 }
 
 let getStatus = () => {
-  if ( userData.name !== '' ) {
-    if (userData.admin === true) {
-      return 'admin';
+  let userData = getUserData();
+  if ( !!userData ){
+    if ( userData && !!userData.name ) {
+      if (userData.admin === true) {
+        return 'admin';
+      }
+      return 'user';
     }
-    return 'user';
   }
   return 'guest';
 }
 
 let getActiveUser = () => {
-  return userData;
+  return getUserData();
 }
 
 let setActiveUser = (user) => {
-  userData = user;
+  let newUser = JSON.stringify(user);
+  localStorage.setItem("user", newUser);
+}
+
+let removeUser = () => {
+  localStorage.removeItem("user");
+  init();
 }
 
 export default { 
   userAuthorization,
   getStatus,
   getActiveUser,
-  userMenu
+  userMenu,
+  init
 }
